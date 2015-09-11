@@ -10,8 +10,6 @@ exports.headers = headers = {
   'Content-Type': "text/html"
 };
 
-
-
 exports.getFile = function(filePath, res) {
   fs.readFile(filePath, 'utf8', function(err, data) {
     if (err) {
@@ -25,7 +23,9 @@ exports.getFile = function(filePath, res) {
 };
 
 exports.sendResponse = function(res, statusCode) {
-
+  statusCode = statusCode || 200;
+  res.writeHead(statusCode, headers);
+  res.end('');
 };
 
 exports.serveAssets = function(res, asset, callback, statusCode) {
@@ -37,6 +37,8 @@ exports.serveAssets = function(res, asset, callback, statusCode) {
   res.end(asset);
   callback();
 };
+
+
 
 
 
